@@ -510,6 +510,11 @@ csstype@^3.1.0:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
+dayjs@^1.11.6:
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.6.tgz#2e79a226314ec3ec904e3ee1dd5a4f5e5b1c7afb"
+  integrity sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==
+
 debug@^4.1.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
@@ -684,6 +689,11 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==
 
+events@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
+  integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
+
 fast-glob@^3.2.12:
   version "3.2.12"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.12.tgz#7f39ec99c2e6ab030337142da9e0c18f37afae80"
@@ -840,6 +850,60 @@ micromatch@^4.0.4, micromatch@^4.0.5:
   dependencies:
     braces "^3.0.2"
     picomatch "^2.3.1"
+
+mincu-core@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/mincu-core/-/mincu-core-2.12.0.tgz#44a476356c83e5c11954adafe59ae570a26f9fc0"
+  integrity sha512-ho3YthZjKZ6tyPp8J19Y8jDgDS3yk3Ab8uVFyYIuMTUd824Tw91Wjy2rYQLKwgF9lM+cBgeD9HaeeZpbiDLdqQ==
+  dependencies:
+    events "^3.3.0"
+    mincu-lib "2.12.0"
+
+mincu-data@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/mincu-data/-/mincu-data-2.12.0.tgz#999e6f3036ef6abe9d188ec1740b533af564f1f7"
+  integrity sha512-uZsEkZcNcGXQvXvcrTyHZxdIKVn16z6bgi/N4fwEt48aWWJOuUOfGeR1xSYrLIfZGXwqGhhe7+Wa6jFImLe60A==
+  dependencies:
+    mincu-core "2.12.0"
+    mincu-lib "2.12.0"
+
+mincu-event@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/mincu-event/-/mincu-event-2.12.0.tgz#20051778133305a18bd9d22286083a4b030e0d0a"
+  integrity sha512-RE0nji7zlQVRiloFDpTG8Na6RvSxoex6fIuYsL2j3L/vWpIiFqa3l/cB3glMi2m51vnuLsQipAZjcaQpPqWItg==
+  dependencies:
+    mincu-core "2.12.0"
+
+mincu-lib@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/mincu-lib/-/mincu-lib-2.12.0.tgz#9d3f27d2e5bbca4c10a7fa656e2d279e4b2ca823"
+  integrity sha512-0fLJ0yDXkNrrRXOTwfTaMStMRj7+lMrRlesA9E808b4d7AwkziZIrEtRJN2dpvREq7njeYJVRf0micheBspNUA==
+
+mincu-network@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/mincu-network/-/mincu-network-2.12.0.tgz#a2a398f91a8d0c28613e6177e0e13ce98bd0f346"
+  integrity sha512-fhisuooxZwufNDOlf1F/z00L2ckwye8CaAXKFtq3zjGg+rMyIS0uqZiL7ftfpOXtlbXu83Tch1Mpmw4LDiJiSw==
+  dependencies:
+    mincu-core "2.12.0"
+    mincu-data "2.12.0"
+
+mincu-ui@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/mincu-ui/-/mincu-ui-2.12.0.tgz#30b32b26031ce4b2f5629351162350ad83ce7ebf"
+  integrity sha512-nACkp3B0Mj98p6J2Qy3umL5e1gBwB0N9EeK3k9zFMUExmqXiiYlR+3XhyoIvnohQVNL5+GSLGfCL7QwP07jpEQ==
+  dependencies:
+    mincu-core "2.12.0"
+
+mincu-vanilla@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/mincu-vanilla/-/mincu-vanilla-2.12.0.tgz#e53547725ebe718b6bdecc57670b73edf7784d35"
+  integrity sha512-bCG2DkORf4zhiQsOkvAwPpIhNKIg4y6vFyHeI4DzAD2txJqzi1EcU/1PDQ7FxFCz2W1hwJMuPSSHSzcVDEK7oA==
+  dependencies:
+    mincu-core "2.12.0"
+    mincu-data "2.12.0"
+    mincu-event "2.12.0"
+    mincu-network "2.12.0"
+    mincu-ui "2.12.0"
 
 minimist@^1.2.6:
   version "1.2.7"
