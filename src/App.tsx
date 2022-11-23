@@ -26,6 +26,7 @@ import { mincu } from "mincu-vanilla";
 
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
+  // const [nextMatch,setNextMatch] = createSignal(null);
   const [todayMatches] = createResource(fetchTodayMatches);
   const [allMatches] = createResource(fetchAllMatches);
   const [matchesAndQuiz, { mutate }] = createResource(fetchMatchesAndQuiz);
@@ -34,6 +35,21 @@ const App: Component = () => {
   const activeMatches = () => {
     return (allMatches() || []).filter(
       (match: ScoreboardProps) => dayjs(match.datetime).date() === activeDate()
+    );
+  };
+  // createEffect(() => {
+  //   if(!allMatches()) return;
+  //   const nextMatch = allMatches().find(
+  //     (match: ScoreboardProps) => match.status === "future_scheduled"
+  //   );
+  //   console.log(nextMatch);
+  //   return nextMatch;
+  // });
+
+  const nextMatch = () => {
+    console.log(allMatches());
+    return allMatches.latest.find(
+      (match: ScoreboardProps) => match.status === "future_scheduled"
     );
   };
 
@@ -68,43 +84,38 @@ const App: Component = () => {
           {/* 正在进行 */}
           <div class="mt-6"></div>
           <div class="p-4 rounded-3xl mx-auto bg-gradient-to-br from-[#222124] to-[#2B2B2B]/60 w-11/12">
-            <Show
-              when={currentMatches()?.length}
-              fallback={
-                <Show when={todayMatches()} fallback={<div>loading...</div>}>
-                  <div class="text-lg font-bold">接下来进行</div>
-                  <Spacer2 />
-                  <Scoreboard
-                    {...(allMatches() || []).find(
-                      (match: ScoreboardProps) =>
-                        match.status === "future_scheduled"
-                    )}
+            <Switch fallback={"loading..."}>
+              <Match when={currentMatches()?.length > 0}>
+                <div class="text-lg font-bold">正在进行</div>
+                <Spacer2 />
+                <Scoreboard status="in_progress" {...currentMatches()[0]}>
+                  <div
+                    onclick={() => {
+                      alert("暂无");
+                    }}
+                    class="p-1 bg-white/10 text-center rounded-lg "
                   >
-                    <div
-                      onclick={() => {
-                        alert("暂无");
-                      }}
-                      class="p-1 bg-white/10 text-center rounded-lg "
-                    >
-                      更多信息
-                    </div>
-                  </Scoreboard>
-                </Show>
-              }
-            >
-              <div class="text-lg font-bold">正在进行</div>
-              <Spacer2 />
-              <Scoreboard status="in_progress" {...currentMatches()[0]}>
-                <div
-                  onclick={() => {
-                    alert("暂无");
-                  }}
-                  class="p-1 bg-white/10 text-center rounded-lg "
-                >
-                  更多信息
-                </div>
-              </Scoreboard>
-            </Show>
+                    更多信息
+                  </div>
+                </Scoreboard>
+              </Match>
+              <Match
+                when={currentMatches()?.length == 0 && allMatches()?.length > 0}
+              >
+                <div class="text-lg font-bold">接下来进行</div>
+                <Spacer2 />
+                <Scoreboard {...nextMatch()}>
+                  <div
+                    onclick={() => {
+                      alert("暂无");
+                    }}
+                    class="p-1 bg-white/10 text-center rounded-lg "
+                  >
+                    更多信息
+                  </div>
+                </Scoreboard>
+              </Match>
+            </Switch>
           </div>
 
           {/* 赢头像框 */}
