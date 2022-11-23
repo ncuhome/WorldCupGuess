@@ -12,6 +12,7 @@ import {
 } from "solid-js";
 import dayjs from "dayjs";
 import classNames from "classnames";
+import { mincu } from "mincu-vanilla";
 
 import avatar1 from "/avatar1.png";
 import avatar2 from "/avatar2.png";
@@ -24,8 +25,7 @@ import {
   postQuiz,
 } from "./apis";
 import { Scoreboard, ScoreboardProps } from "./Scoreboard";
-import { mincu } from "mincu-vanilla";
-import Loading from "./loading";
+import Loading from "./Loading";
 
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
