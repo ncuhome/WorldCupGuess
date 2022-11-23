@@ -111,10 +111,9 @@ const App: Component = () => {
                 onclick={() => {
                   mincu.isApp
                     ? mincu.toast.info(
-                        `竞猜正确次数：${
-                          matchesAndQuiz()?.right_count
-                        }\n达到对应场次可获得永久头像框`
-                      )
+                      `竞猜正确次数：${matchesAndQuiz()?.right_count
+                      }\n达到对应场次可获得永久头像框`
+                    )
                     : alert("请在南大家园中打开");
                 }}
               >
@@ -285,9 +284,14 @@ const App: Component = () => {
             </For>
           </div>
           <Spacer4 />
+          <div class="flex justify-center ">
+            <div class='grid justify-items-center w-24 h-8 flex items-center bg-white/10 rounded-2xl'
+              onClick={() => window.open("https://wenjuan.feishu.cn/m?t=sWAFWN1vvLHi-wv22")}>问题反馈</div>
+          </div>
+          <Spacer4 />
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
