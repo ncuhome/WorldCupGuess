@@ -3,12 +3,28 @@ import { mincu, mincuCore } from "mincu-vanilla";
 const isApp = mincuCore.isApp;
 const toast = mincu.toast;
 
-const token =
-  "passport " +
-  (isApp == true
-    ? mincu.appData.user.token
-    : "");
+const token = "passport " + (isApp == true ? mincu.appData.user.token : "");
 
+interface quizResponse {
+  code: number;
+  msg: string;
+  data: {
+    right_count: number;
+    matches: {
+      id: number;
+      quiz: string;
+      // venue: string;
+      // status: string;
+      // home_team_country: string;
+      // away_team_country: string;
+      // datetime: string;
+      winner: string;
+      // winner_code: string;
+      // home_team_goals: number;
+      // away_team_goals: number;
+    }[];
+  };
+}
 /**
  * fetch all matches and iNCUers quiz from
  * https://worldcup-api.ncuos.com/api/auth/matches
@@ -19,7 +35,7 @@ export async function fetchMatchesAndQuiz() {
       Authorization: `${token}`,
     },
   });
-  const data = await res.json();
+  const data:quizResponse = await res.json();
   // console.log(data);
   isApp && toast.info(data.msg);
   return data.data;

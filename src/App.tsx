@@ -26,8 +26,6 @@ import { mincu } from "mincu-vanilla";
 
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
-  // const [nextMatch,setNextMatch] = createSignal(null);
-  const [todayMatches] = createResource(fetchTodayMatches);
   const [allMatches] = createResource(fetchAllMatches);
   const [matchesAndQuiz, { mutate }] = createResource(fetchMatchesAndQuiz);
   const [currentMatches, { refetch }] = createResource(fetchCurrentMatches);
@@ -37,17 +35,8 @@ const App: Component = () => {
       (match: ScoreboardProps) => dayjs(match.datetime).date() === activeDate()
     );
   };
-  // createEffect(() => {
-  //   if(!allMatches()) return;
-  //   const nextMatch = allMatches().find(
-  //     (match: ScoreboardProps) => match.status === "future_scheduled"
-  //   );
-  //   console.log(nextMatch);
-  //   return nextMatch;
-  // });
 
   const nextMatch = () => {
-    console.log(allMatches());
     return allMatches.latest.find(
       (match: ScoreboardProps) => match.status === "future_scheduled"
     );
@@ -64,7 +53,7 @@ const App: Component = () => {
       matches: (matchesAndQuiz()?.matches || []).map((match: ScoreboardProps) =>
         match.id === match_id ? { ...match, quiz } : match
       ),
-    });
+    } as any);
   };
 
   const submitQuiz = (match_id: number, quiz: string) => {
@@ -126,7 +115,11 @@ const App: Component = () => {
               <span
                 class="text-md bg-white/10 px-2 rounded-lg"
                 onclick={() => {
-                  alert("敬请期待");
+                  mincu.isApp
+                    ? mincu.toast.info(
+                        `竞猜正确次数：${matchesAndQuiz()?.right_count}`
+                      )
+                    : alert("请在南大家园中打开");
                 }}
               >
                 查看已获得
@@ -219,17 +212,20 @@ const App: Component = () => {
                           <Divider />
                           <div class="text-center">
                             已竞猜
-                            {` ${quiz(item.id)} `}
-                            {quiz(item.id) !== "tie" && "获胜"}
+                            {quiz(item.id) == "Draw"
+                              ? "平局"
+                              : ` ${quiz(item.id)} 获胜`}
                           </div>
                         </Match>
-                        <Match
-                          when={quiz(item.id) && item.winner === quiz(item.id)}
-                        >
+                        <Match when={quiz(item.id) && item.winner}>
                           <Divider />
                           <div class="text-center ">
-                            {item.winner} {quiz(item.id) !== "tie" && "获胜"}{" "}
-                            竞猜正确
+                            {item.winner == "Draw"
+                              ? "平局"
+                              : `${item.winner} 获胜`}{" "}
+                            {item.winner == quiz(item.id)
+                              ? "竞猜正确"
+                              : "竞猜错误"}
                           </div>
                         </Match>
 
@@ -249,7 +245,7 @@ const App: Component = () => {
                             </div>
                             <div class="w-px h-6 bg-white/10"></div>
                             <div
-                              onclick={() => submitQuiz(item.id, "tie")}
+                              onclick={() => submitQuiz(item.id, "Draw")}
                               class="font-semibold"
                             >
                               平
