@@ -8,3 +8,6 @@ SolidJS + Vite + TypeScript + TailwindCSS
 yarn
 yarn dev
 ```
+## 后端
+赛程数据：https://github.com/estiens/world_cup_json
+竞猜数据：https://github.com/ncuhome/worldcup-2022
