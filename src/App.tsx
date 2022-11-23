@@ -13,7 +13,9 @@ import {
 import dayjs from "dayjs";
 import classNames from "classnames";
 
-import avatar from "/avatar.png";
+import avatar1 from "/avatar1.png";
+import avatar2 from "/avatar2.png";
+import avatar3 from "/avatar3.png";
 import {
   fetchAllMatches,
   fetchCurrentMatches,
@@ -133,17 +135,17 @@ const App: Component = () => {
               <div class="text-gray-300">累计成功竞猜结果场次</div>
               <div class="flex flex-row space-x-10 mt-2">
                 <div class="flex flex-col items-center ">
-                  <img src={avatar} alt="" class="w-10 h-10 rounded-full" />
+                  <img src={avatar1} alt="" class="w-10 h-10 rounded-full" />
                   <div class="mt-1 px-1 bg-yellow-500 rounded-xl">初级</div>
                   <div class="text-yellow-500">5</div>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={avatar} alt="" class="w-10 h-10 rounded-full" />
+                  <img src={avatar2} alt="" class="w-10 h-10 rounded-full" />
                   <div class="mt-1 px-1 bg-sky-500 rounded-xl">中级</div>
                   <div class="text-sky-600">10</div>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={avatar} alt="" class="w-10 h-10 rounded-full" />
+                  <img src={avatar3} alt="" class="w-10 h-10 rounded-full" />
                   <div class="mt-1 px-1 bg-purple-500 rounded-xl">高级</div>
                   <div class="text-purple-600">20</div>
                 </div>
