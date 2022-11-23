@@ -50,10 +50,11 @@ const App: Component = () => {
 
   const mutateQuiz = (match_id: number, quiz: string) => {
     mutate({
+      ...matchesAndQuiz(),
       matches: (matchesAndQuiz()?.matches || []).map((match: ScoreboardProps) =>
         match.id === match_id ? { ...match, quiz } : match
-      ),
-    } as any);
+
+      )} as any);
   };
 
   const submitQuiz = (match_id: number, quiz: string) => {

@@ -37,7 +37,7 @@ export async function fetchMatchesAndQuiz() {
   });
   const data:quizResponse = await res.json();
   // console.log(data);
-  isApp && toast.info(data.msg);
+  // isApp && toast.info(data.msg);
   return data.data;
 }
 
