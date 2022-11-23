@@ -35,7 +35,7 @@ export async function fetchMatchesAndQuiz() {
       Authorization: `${token}`,
     },
   });
-  const data:quizResponse = await res.json();
+  const data: quizResponse = await res.json();
   // console.log(data);
   // isApp && toast.info(data.msg);
   return data.data;
@@ -60,7 +60,8 @@ export async function postQuiz(match_id: number, quiz: string) {
   });
   const data = await res.json();
   console.log(data);
-  toast.info(data.msg);
+  data.code == 0 && toast.info("竞猜成功");
+  data.code && toast.info(data.msg);
   return data.data;
 }
 

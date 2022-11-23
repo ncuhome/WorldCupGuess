@@ -29,7 +29,8 @@ import { mincu } from "mincu-vanilla";
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
   const [allMatches] = createResource(fetchAllMatches);
-  const [matchesAndQuiz, { mutate }] = createResource(fetchMatchesAndQuiz);
+  const [matchesAndQuiz, { mutate, refetch: refetchQuiz }] =
+    createResource(fetchMatchesAndQuiz);
   const [currentMatches, { refetch }] = createResource(fetchCurrentMatches);
 
   const activeMatches = () => {
@@ -55,13 +56,14 @@ const App: Component = () => {
       ...matchesAndQuiz(),
       matches: (matchesAndQuiz()?.matches || []).map((match: ScoreboardProps) =>
         match.id === match_id ? { ...match, quiz } : match
-
-      )} as any);
+      ),
+    } as any);
   };
 
   const submitQuiz = (match_id: number, quiz: string) => {
+    mutateQuiz(match_id, quiz);
     postQuiz(match_id, quiz).then(() => {
-      mutateQuiz(match_id, quiz);
+      refetchQuiz();
     });
   };
 
@@ -81,14 +83,7 @@ const App: Component = () => {
                 <div class="text-lg font-bold">正在进行</div>
                 <Spacer2 />
                 <Scoreboard status="in_progress" {...currentMatches()[0]}>
-                  <div
-                    onclick={() => {
-                      alert("暂无");
-                    }}
-                    class="p-1 bg-white/10 text-center rounded-lg "
-                  >
-                    更多信息
-                  </div>
+                  <MoreInfo />
                 </Scoreboard>
               </Match>
               <Match
@@ -97,14 +92,7 @@ const App: Component = () => {
                 <div class="text-lg font-bold">接下来进行</div>
                 <Spacer2 />
                 <Scoreboard {...nextMatch()}>
-                  <div
-                    onclick={() => {
-                      alert("暂无");
-                    }}
-                    class="p-1 bg-white/10 text-center rounded-lg "
-                  >
-                    更多信息
-                  </div>
+                  <MoreInfo />
                 </Scoreboard>
               </Match>
             </Switch>
@@ -120,7 +108,9 @@ const App: Component = () => {
                 onclick={() => {
                   mincu.isApp
                     ? mincu.toast.info(
-                        `竞猜正确次数：${matchesAndQuiz()?.right_count}`
+                        `竞猜正确次数：${
+                          matchesAndQuiz()?.right_count
+                        }\n达到对应场次可获得永久头像框`
                       )
                     : alert("请在南大家园中打开");
                 }}
@@ -281,6 +271,19 @@ const App: Component = () => {
           <Spacer4 />
         </div>
       </div>
+    </div>
+  );
+};
+
+const MoreInfo: Function = () => {
+  return (
+    <div
+      onclick={() => {
+        window.open("https://worldcup.cctv.com/");
+      }}
+      class="p-1 bg-white/10 text-center rounded-lg "
+    >
+      更多信息
     </div>
   );
 };
