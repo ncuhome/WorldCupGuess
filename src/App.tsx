@@ -125,17 +125,17 @@ const App: Component = () => {
               <div class="text-gray-300">累计成功竞猜结果场次</div>
               <div class="flex flex-row space-x-10 mt-2">
                 <div class="flex flex-col items-center ">
-                  <img src={avatar1} alt="" class="w-10 h-10 rounded-full" />
+                  <img src={avatar1} alt="" class="w-12 h-12 rounded-full" />
                   <div class="mt-1 px-1 bg-yellow-500 rounded-xl">初级</div>
                   <div class="text-yellow-500">5</div>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={avatar2} alt="" class="w-10 h-10 rounded-full" />
+                  <img src={avatar2} alt="" class="w-12 h-12 rounded-full" />
                   <div class="mt-1 px-1 bg-sky-500 rounded-xl">中级</div>
                   <div class="text-sky-600">10</div>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={avatar3} alt="" class="w-10 h-10 rounded-full" />
+                  <img src={avatar3} alt="" class="w-12 h-12 rounded-full" />
                   <div class="mt-1 px-1 bg-purple-500 rounded-xl">高级</div>
                   <div class="text-purple-600">20</div>
                 </div>
@@ -156,7 +156,12 @@ const App: Component = () => {
               <div class="font-bold text-lg">赛事日程</div>
               <div class="py-1  bg-white/10 rounded-full text-sm">
                 {/* <span class="px-2 text-gray-300">已结束</span> */}
-                <span class="bg-green-500 rounded-full py-1 px-2 " onclick={()=>{setDate(dayjs().date())}}>
+                <span
+                  class="bg-green-500 rounded-full py-1 px-2 "
+                  onclick={() => {
+                    setDate(dayjs().date());
+                  }}
+                >
                   回到今日
                 </span>
               </div>
