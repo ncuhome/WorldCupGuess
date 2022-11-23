@@ -15,5 +15,21 @@
 
   <script src="/src/index.tsx" type="module"></script>
 </body>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDK74DH1XG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-CDK74DH1XG');
+</script>
+
+<!-- // custom event
+gtag('event', 'tourl', {
+  url,
+  event_callback: () => {
+    console.log('sent')
+  },
+}) -->
 </html>
