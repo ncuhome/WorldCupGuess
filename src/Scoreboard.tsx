@@ -35,7 +35,7 @@ export const Scoreboard: Component<ScoreboardProps> = ({
 }) => {
   dayjs.locale("zh-cn");
   return (
-    <div class="flex flex-col p-3 bg-white/10 rounded-2xl ">
+    <div class="flex flex-col p-3 bg-white/10 rounded-2xl">
       {status == "in_progress" ||
         (status == "completed" && (
           <div class=" text-gray-300 text-center">
@@ -68,9 +68,16 @@ export const Scoreboard: Component<ScoreboardProps> = ({
               {home_team?.goals || 0} : {away_team?.goals || 0}
             </div>
             {status == "in_progress" ? (
-              <div class="text-sm text-green-500">● 进行中</div>
+              <div class="text-sm text-green-500 font-semibold relative flex felx-row justify-center items-center ">
+                <span class="flex relative h-3 w-3 mr-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                {/* <span class="animate-ping"> ● </span> */}
+                进行中
+              </div>
             ) : (
-              <div class="text-sm text-gray-300">● 已结束</div>
+              <div class="text-sm text-gray-300 font-semibold">● 已结束</div>
             )}
           </div>
         </Show>

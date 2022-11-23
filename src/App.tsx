@@ -25,6 +25,7 @@ import {
 } from "./apis";
 import { Scoreboard, ScoreboardProps } from "./Scoreboard";
 import { mincu } from "mincu-vanilla";
+import Loading from "./loading";
 
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
@@ -78,11 +79,13 @@ const App: Component = () => {
           {/* 正在进行 */}
           <div class="mt-6"></div>
           <div class="p-4 rounded-3xl mx-auto bg-gradient-to-br from-[#222124] to-[#2B2B2B]/60 w-11/12">
-            <Switch fallback={"loading..."}>
+            <Switch fallback={<Loading />}>
               <Match when={currentMatches()?.length > 0}>
                 <div class="text-lg font-bold">正在进行</div>
                 <Spacer2 />
                 <Scoreboard status="in_progress" {...currentMatches()[0]}>
+                  {/*  mmanully track,need to fix */}
+                  {currentMatches() ? "" : ""}
                   <MoreInfo />
                 </Scoreboard>
               </Match>
@@ -121,7 +124,7 @@ const App: Component = () => {
 
             <Spacer2 />
             <div class="p-2 flex flex-col justify-around items-center bg-black/10 rounded-xl">
-              <div class="text-lg font-semibold">绿荫达人</div>
+              <div class="text-lg font-semibold">绿茵达人</div>
               <div class="text-gray-300">累计成功竞猜结果场次</div>
               <div class="flex flex-row space-x-10 mt-2">
                 <div class="flex flex-col items-center ">
@@ -144,7 +147,7 @@ const App: Component = () => {
 
             <Spacer2 />
             <div class="p-2 bg-black/10 rounded-xl flex flex-col items-center">
-              <div class="font-semibold">绿荫专家</div>
+              <div class="text-lg font-semibold">绿茵专家</div>
               <div class="text-gray-300">淘汰赛阶段开启</div>
             </div>
           </div>
@@ -188,10 +191,18 @@ const App: Component = () => {
               </For>
             </div>
 
-            <For each={activeMatches()} fallback={"loading..."}>
-              {(item: ScoreboardProps) => (
+            <For
+              each={activeMatches()}
+              fallback={
                 <>
                   <Spacer2 />
+                  <Loading />
+                </>
+              }
+            >
+              {(item: ScoreboardProps) => (
+                <>
+                  <Spacer4 />
                   <Scoreboard {...item}>
                     {mincu.isApp ? (
                       <Switch>
