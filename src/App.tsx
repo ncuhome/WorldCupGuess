@@ -154,7 +154,7 @@ const App: Component = () => {
           <div class="p-4 rounded-3xl mx-auto bg-gradient-to-br from-[#EDEDED]/20 to-[#9890CD]/30 w-11/12">
             <div class="flex flex-row justify-between">
               <div class="font-bold text-lg">赛事日程</div>
-              <div class="py-1  bg-white/10 rounded-full text-sm">
+              <div class="py-1 rounded-full text-sm">
                 {/* <span class="px-2 text-gray-300">已结束</span> */}
                 <span
                   class="bg-green-500 rounded-full py-1 px-2 "
