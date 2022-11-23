@@ -155,9 +155,9 @@ const App: Component = () => {
             <div class="flex flex-row justify-between">
               <div class="font-bold text-lg">赛事日程</div>
               <div class="py-1  bg-white/10 rounded-full text-sm">
-                <span class="px-2 text-gray-300">已结束</span>
-                <span class="bg-green-500 rounded-full py-1 px-2 ">
-                  正在竞猜
+                {/* <span class="px-2 text-gray-300">已结束</span> */}
+                <span class="bg-green-500 rounded-full py-1 px-2 " onclick={()=>{setDate(dayjs().date())}}>
+                  回到今日
                 </span>
               </div>
             </div>
