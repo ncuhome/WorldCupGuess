@@ -284,9 +284,8 @@ const App: Component = () => {
             </For>
           </div>
           <Spacer4 />
-          <div class="flex justify-center ">
-            <div class='grid justify-items-center w-24 h-8 flex items-center bg-white/10 rounded-2xl'
-              onClick={() => window.open("https://wenjuan.feishu.cn/m?t=sWAFWN1vvLHi-wv22")}>问题反馈</div>
+          <div class=' w-20 py-1 text-center bg-white/10 rounded-xl self-center'
+            onClick={() => window.open("https://wenjuan.feishu.cn/m?t=sWAFWN1vvLHi-wv22")}>问题反馈
           </div>
           <Spacer4 />
         </div>
