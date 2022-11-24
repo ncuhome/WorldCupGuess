@@ -6,10 +6,10 @@ export type ScoreboardProps = {
   quiz?: string;
   children?: JSXElement;
   status?:
-    | "completed"
-    | "in_progress"
-    | "future_scheduled"
-    | "future_unscheduled";
+  | "completed"
+  | "in_progress"
+  | "future_scheduled"
+  | "future_unscheduled";
   home_team?: {
     country: string;
     name: string;
@@ -96,7 +96,7 @@ const Flag = (props: { country: string }) => {
   return (
     <img
       class=" h-12 rounded-sm drop-shadow-sm"
-      src={`/flags/${props.country}.png`.replace(" ", "_")}
+      src={`/flags/${props.country}.webp`.replace(" ", "_")}
       alt=""
     />
   );
