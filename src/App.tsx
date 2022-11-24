@@ -111,9 +111,9 @@ const App: Component = () => {
                 onclick={() => {
                   mincu.isApp
                     ? mincu.toast.info(
-                        `竞猜正确次数：${
-                          matchesAndQuiz()?.right_count
-                        }\n达到对应场次可获得永久头像框`
+                        `竞猜正确次数：${matchesAndQuiz()?.right_count}
+                        \n达到对应场次可获得永久头像框
+                        \n26日开放领取`
                       )
                     : alert("请在南大家园中打开");
                 }}
