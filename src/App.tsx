@@ -73,7 +73,7 @@ const App: Component = () => {
   }, 60000);
 
   return (
-    <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen">
+    <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold">
       <div class="max-w-screen-md mx-auto">
         <div class="flex flex-col">
           {/* 正在进行 */}
@@ -111,9 +111,10 @@ const App: Component = () => {
                 onclick={() => {
                   mincu.isApp
                     ? mincu.toast.info(
-                      `竞猜正确次数：${matchesAndQuiz()?.right_count
-                      }\n达到对应场次可获得永久头像框`
-                    )
+                        `竞猜正确次数：${
+                          matchesAndQuiz()?.right_count
+                        }\n达到对应场次可获得永久头像框`
+                      )
                     : alert("请在南大家园中打开");
                 }}
               >
@@ -284,13 +285,19 @@ const App: Component = () => {
             </For>
           </div>
           <Spacer4 />
-          <div class=' w-20 py-1 text-center bg-white/10 rounded-xl self-center'
-            onClick={() => window.open("https://wenjuan.feishu.cn/m?t=sWAFWN1vvLHi-wv22")}>问题反馈
+          <div
+            class=" w-20 py-1 text-center bg-white/10 rounded-xl self-center"
+            onClick={() =>
+              (window.location.href =
+                "https://wenjuan.feishu.cn/m?t=sWAFWN1vvLHi-wv22")
+            }
+          >
+            问题反馈
           </div>
           <Spacer4 />
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
