@@ -44,10 +44,11 @@ export const Scoreboard: Component<ScoreboardProps> = ({
         ))}
       <div class="mt-2"></div>
       <div class="flex flex-row justify-around items-center">
-        <div class="flex flex-col justify-center items-center">
+        <div class="flex flex-col flex-1 justify-center items-center">
           <Flag country={home_team?.name!} />
           <div class="text-sm">{home_team?.name}</div>
         </div>
+        <div class="flex-1">
         <Show
           when={
             status !== "future_scheduled" && status !== "future_unscheduled"
@@ -81,7 +82,8 @@ export const Scoreboard: Component<ScoreboardProps> = ({
             )}
           </div>
         </Show>
-        <div class=" flex flex-col justify-center items-center">
+        </div>
+        <div class=" flex flex-col flex-1 justify-center items-center">
           <Flag country={away_team?.name!} />
           <div class="text-sm">{away_team?.name}</div>
         </div>
