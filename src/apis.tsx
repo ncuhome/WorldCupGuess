@@ -97,3 +97,20 @@ export async function fetchAllMatches() {
   // console.log(data);
   return data;
 }
+
+
+export async function fetchAwards() {
+  const data = {
+    right_count: 10,
+    cd_keys: [
+      {
+        title: "初级",
+        cd_key: "xjp123456",
+      },
+      { title: "中级", cd_key: "JK4CUNN2VWKBNKH" },
+      { title: "高级", cd_key: null },
+    ],
+  }
+  // console.log(data);
+  return data;
+}

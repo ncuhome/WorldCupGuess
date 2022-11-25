@@ -21,12 +21,15 @@ import avatar2 from "/avatar2.png";
 import avatar3 from "/avatar3.png";
 import {
   fetchAllMatches,
+  fetchAwards,
   fetchCurrentMatches,
   fetchMatchesAndQuiz,
   postQuiz,
 } from "./apis";
 import { Scoreboard, ScoreboardProps } from "./Scoreboard";
 import Loading from "./Loading";
+import { Spacer2, Spacer4, Divider } from "./widget";
+import AwardsPortal from "./AwardsPortal";
 
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
@@ -35,22 +38,7 @@ const App: Component = () => {
   const [matchesAndQuiz, { mutate, refetch: refetchQuiz }] =
     createResource(fetchMatchesAndQuiz);
   const [currentMatches, { refetch }] = createResource(fetchCurrentMatches);
-  const [awardsData] = createSignal({
-    right_count: 3,
-    cd_keys: [
-      {
-        title: "初级",
-        cd_key: "xjp123456",
-      },
-      { title: "中级", cd_key: "adsfijg" },
-      { title: "高级", cd_key: null },
-    ],
-  });
-
-  const modalNode = () => {
-    if (!showAwards) return null;
-    return document.querySelector("#modal");
-  };
+  const [awardsData] = createResource(fetchAwards);
 
   const activeMatches = () => {
     return (allMatches() || []).filter(
@@ -87,16 +75,11 @@ const App: Component = () => {
   };
 
   const handleShowAwards = () => {
-    setShowAwards(true);
     if (!mincu.isApp) {
       alert("请在南大家园中打开");
       return;
     }
-    mincu.toast.info(
-      `竞猜正确次数：${
-        matchesAndQuiz()?.right_count
-      }\n达到对应场次可获得永久头像框`
-    );
+    setShowAwards(true);
   };
 
   setInterval(() => {
@@ -116,7 +99,11 @@ const App: Component = () => {
           }
         )}
         id="modal"
+        onclick={() => {
+          setShowAwards(false);
+        }}
       />
+      {showAwards() && <AwardsPortal awardsData={awardsData()!} />}
       <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold">
         <div class="max-w-screen-md mx-auto">
           <div class="flex flex-col">
@@ -155,7 +142,6 @@ const App: Component = () => {
                   onclick={handleShowAwards}
                 >
                   查看已获得
-                  {showAwards() && <AwardsProtal awardsData={awardsData()} />}
                 </span>
               </div>
 
@@ -341,40 +327,6 @@ const App: Component = () => {
   );
 };
 
-interface AwardsProtalProps {
-  awardsData: {
-    right_count?: number;
-    cd_keys: { title: string; cd_key: string | null }[];
-  };
-}
-const AwardsProtal: Component<AwardsProtalProps> = (props) => {
-  return (
-    <Portal mount={document.querySelector("body")!}>
-      <div class=" fixed left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 max-w-screen-md z-20 w-2/3 flex flex-col bg-white/80 backdrop-blur-sm rounded-xl justify-center items-center">
-        <div class="p-4 text-xl">✌️</div>
-        <div class="text-2xl font-semibold">
-          竞猜正确场次:{props.awardsData.right_count}
-        </div>
-        <Spacer2 />
-        <div class="w-11/12 bg-white/80 rounded-md">
-          <Spacer2 />
-          <Index each={props.awardsData.cd_keys}>
-            {(award, i) => (
-              <div class="px-2">
-                已获得称号：{award().title}
-                <br />
-                兑换码：{award().cd_key} <span>复制</span>
-                <Divider />
-              </div>
-            )}
-          </Index>
-        </div>
-        <div>距离绿茵达人高级称号还差7场</div>
-      </div>
-    </Portal>
-  );
-};
-
 const MoreInfo: Component = () => {
   return (
     <div
@@ -386,18 +338,6 @@ const MoreInfo: Component = () => {
       更多信息
     </div>
   );
-};
-
-const Spacer2: Component = () => {
-  return <div class="mt-2"></div>;
-};
-
-const Spacer4: Component = () => {
-  return <div class="mt-4"></div>;
-};
-
-const Divider: Component = () => {
-  return <div class="h-px bg-white/10 my-1"></div>;
 };
 
 export default App;
