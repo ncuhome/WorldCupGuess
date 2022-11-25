@@ -147,13 +147,13 @@ const App: Component = () => {
               </div>
               <Spacer2 />
               <div class="flex flex-row space-x-2 overflow-x-auto scroll-m-0 scroll snap-x">
-                <For each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30]}>
+                <For each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30,1,2]}>
                   {(item) => (
                     <div class="flex flex-col items-center snap-center">
                       <div
                         class={classNames(
                           "w-10 h-10 rounded-full bg-white/10 text-center leading-10",
-                          { "bg-green-500": item === activeDate() }
+                          { "bg-green-500/90": item === activeDate() }
                         )}
                         onClick={() => {
                           setDate(item);

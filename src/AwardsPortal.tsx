@@ -8,10 +8,11 @@ import { Spacer2, Spacer4 } from "./widget";
 interface AwardsPortalProps {
   awardsData: {
     right_count: number;
-    cd_keys: { title: string; cd_key: string | null }[];
+    cd_keys: { title: string; Key: string | null }[];
   };
 }
 const AwardsPortal: Component<AwardsPortalProps> = (props) => {
+  console.log(props.awardsData);
   return (
     <Portal mount={document.querySelector("body")!}>
       <div class=" fixed left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 max-w-screen-md z-20 w-3/4  bg-white rounded-xl  overflow-hidden p-1 border-2  border-black/30 ">
@@ -28,35 +29,43 @@ const AwardsPortal: Component<AwardsPortalProps> = (props) => {
             ) : (
               <Index each={props.awardsData.cd_keys}>
                 {(award, i) =>
-                  award().cd_key && (
+                  award().Key && (
                     <div>
                       <div class="py-2">
                         已获得：绿茵达人
                         <span
                           class={classNames(
                             "rounded-md px-1 ml-1 text-white",
-                            { "bg-yellow-500": award().title == "初级" },
-                            { "bg-sky-500": award().title == "中级" },
-                            { "bg-purple-500": award().title == "高级" }
+                            { "bg-yellow-500": i == 0 },
+                            { "bg-sky-500": i == 1 },
+                            { "bg-purple-500": i == 2 }
                           )}
                         >
-                          {award().title}
+                          {classNames(
+                            { 初级: i == 0 },
+                            { 中级: i == 1 },
+                            { 高级: i == 2 }
+                          )}
                         </span>
                         <div
                           class="flex flex-row justify-between"
                           onclick={() => {
-                            copy(award().cd_key!, {
+                            copy(award().Key!, {
                               debug: true,
                             });
                             mincu.toast.success("复制成功,请前往神秘商店兑换");
                           }}
                         >
-                          <span>兑换码：{award().cd_key}</span>
-                          <img src="/copy.png" class="h-5" onclick={() => {}} />
+                          <span>兑换码：{award().Key}</span>
+                          <img
+                            src="/copy.png"
+                            class="h-5 opacity-80"
+                            onclick={() => {}}
+                          />
                         </div>
                       </div>
 
-                      {i !== 2 && props.awardsData.cd_keys[i + 1].cd_key && (
+                      {props.awardsData.cd_keys[i + 1] && (
                         <div class="h-px bg-black/10 m-1" />
                       )}
                     </div>
