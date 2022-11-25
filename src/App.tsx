@@ -1,24 +1,16 @@
 // World cup
 import {
   Component,
-  createEffect,
   createResource,
   createSignal,
   For,
-  Show,
   Switch,
   Match,
-  onMount,
-  Index,
 } from "solid-js";
 import dayjs from "dayjs";
 import classNames from "classnames";
 import { mincu } from "mincu-vanilla";
-import { Portal } from "solid-js/web";
 
-import avatar1 from "/avatar1.png";
-import avatar2 from "/avatar2.png";
-import avatar3 from "/avatar3.png";
 import {
   fetchAllMatches,
   fetchAwards,
@@ -30,6 +22,7 @@ import { Scoreboard, ScoreboardProps } from "./Scoreboard";
 import Loading from "./Loading";
 import { Spacer2, Spacer4, Divider } from "./widget";
 import AwardsPortal from "./AwardsPortal";
+import AwardsExhibition from "./AwardsExhibition";
 
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
@@ -133,47 +126,7 @@ const App: Component = () => {
             </div>
 
             {/* 赢头像框 */}
-            <Spacer4 />
-            <div class="p-4 rounded-3xl mx-auto bg-gradient-to-br from-[#EDEDED]/20 to-[#9890CD]/30 w-11/12">
-              <div class="flex flex-row justify-between items-center">
-                <span class="text-lg font-bold">竞猜赢永久头像框</span>
-                <span
-                  class="text-md bg-white/10 px-2 rounded-lg"
-                  onclick={handleShowAwards}
-                >
-                  查看已获得
-                </span>
-              </div>
-
-              <Spacer2 />
-              <div class="p-2 flex flex-col justify-around items-center bg-black/10 rounded-xl">
-                <div class="text-lg font-semibold">绿茵达人</div>
-                <div class="text-gray-300">累计成功竞猜结果场次</div>
-                <div class="flex flex-row space-x-10 mt-2">
-                  <div class="flex flex-col items-center ">
-                    <img src={avatar1} alt="" class="w-12 h-12 rounded-full" />
-                    <div class="mt-1 px-1 bg-yellow-500 rounded-xl">初级</div>
-                    <div class="text-yellow-500">5</div>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <img src={avatar2} alt="" class="w-12 h-12 rounded-full" />
-                    <div class="mt-1 px-1 bg-sky-500 rounded-xl">中级</div>
-                    <div class="text-sky-600">10</div>
-                  </div>
-                  <div class="flex flex-col items-center">
-                    <img src={avatar3} alt="" class="w-12 h-12 rounded-full" />
-                    <div class="mt-1 px-1 bg-purple-500 rounded-xl">高级</div>
-                    <div class="text-purple-600">20</div>
-                  </div>
-                </div>
-              </div>
-
-              <Spacer2 />
-              <div class="p-2 bg-black/10 rounded-xl flex flex-col items-center">
-                <div class="text-lg font-semibold">绿茵专家</div>
-                <div class="text-gray-300">淘汰赛阶段开启</div>
-              </div>
-            </div>
+            <AwardsExhibition onclick={handleShowAwards} />
 
             {/* 赛事日程 */}
             <Spacer4 />

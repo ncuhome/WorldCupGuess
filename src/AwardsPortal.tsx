@@ -30,7 +30,7 @@ const AwardsPortal: Component<AwardsPortalProps> = (props) => {
                 award().cd_key && (
                   <div>
                     <div class="py-2">
-                      已获得称号：绿茵达人
+                      已获得：绿茵达人
                       <span
                         class={classNames(
                           "rounded-md px-1 ml-1 text-white",
@@ -55,7 +55,7 @@ const AwardsPortal: Component<AwardsPortalProps> = (props) => {
                       </div>
                     </div>
 
-                    {props.awardsData.cd_keys[i + 1].cd_key !== null && (
+                    {i!==2&&props.awardsData.cd_keys[i + 1].cd_key && (
                       <div class="h-px bg-black/10 m-1" />
                     )}
                   </div>

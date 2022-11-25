@@ -105,10 +105,10 @@ export async function fetchAwards() {
     cd_keys: [
       {
         title: "初级",
-        cd_key: "xjp123456",
+        cd_key: "huiaghnlr",
       },
       { title: "中级", cd_key: "JK4CUNN2VWKBNKH" },
-      { title: "高级", cd_key: null },
+      { title: "高级", cd_key: '' },
     ],
   }
   // console.log(data);
