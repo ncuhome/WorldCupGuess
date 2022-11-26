@@ -12,8 +12,10 @@ import classNames from "classnames";
 import { mincu } from "mincu-vanilla";
 
 import {
+  acceptBorder,
   fetchAllMatches,
   fetchAwards,
+  fetchBorderData,
   fetchCurrentMatches,
   fetchMatchesAndQuiz,
   postQuiz,
@@ -32,6 +34,8 @@ const App: Component = () => {
     createResource(fetchMatchesAndQuiz);
   const [currentMatches, { refetch }] = createResource(fetchCurrentMatches);
   const [awardsData] = createResource(fetchAwards);
+  const [borderData, { mutate: mutateBorderData, refetch: refetchBorderData }] =
+    createResource(fetchBorderData);
 
   const activeMatches = () => {
     return (allMatches() || []).filter(
@@ -75,6 +79,25 @@ const App: Component = () => {
     setShowAwards(true);
   };
 
+  const handleAccept = (title: string) => {
+    mutateBorderData({
+      ...borderData(),
+      borders: borderData()?.borders.map((b) => {
+        if (b.title === title) {
+          return { ...b, accepted: true };
+        }
+        return b;
+      }),
+    } as any);
+    acceptBorder(title)
+      .then(() => {
+        refetchBorderData();
+      })
+      .catch(() => {
+        refetchBorderData();
+      });
+  };
+
   setInterval(() => {
     refetch();
   }, 60000);
@@ -96,7 +119,9 @@ const App: Component = () => {
           setShowAwards(false);
         }}
       />
-      {showAwards() && awardsData() && <AwardsPortal awardsData={matchesAndQuiz()!} />}
+      {showAwards() && borderData() && (
+        <AwardsPortal borderData={borderData()!} onAccept={handleAccept} />
+      )}
       <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold">
         <div class="max-w-screen-md mx-auto">
           <div class="flex flex-col">
@@ -147,7 +172,7 @@ const App: Component = () => {
               </div>
               <Spacer2 />
               <div class="flex flex-row space-x-2 overflow-x-auto scroll-m-0 scroll snap-x">
-                <For each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30,1,2]}>
+                <For each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2]}>
                   {(item) => (
                     <div class="flex flex-col items-center snap-center">
                       <div

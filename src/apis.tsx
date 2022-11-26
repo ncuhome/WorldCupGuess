@@ -1,14 +1,9 @@
-import { mincu, mincuCore,networkModule } from "mincu-vanilla";
+import { mincu, mincuCore, networkModule } from "mincu-vanilla";
 
 const isApp = mincuCore.isApp;
 const toast = mincu.toast;
 
-const token =
-  "passport " +
-  (isApp == true
-    ? mincu.appData.user.token
-    : "");
-
+const token = "passport " + (isApp == true ? mincu.appData.user.token : "");
 
 interface quizResponse {
   code: number;
@@ -103,7 +98,6 @@ export async function fetchAllMatches() {
   return data;
 }
 
-
 /**
  * fetch awards from
  * https://worldcup-api.ncuos.com/api/auth/keys
@@ -130,5 +124,81 @@ export async function fetchAwards() {
     },
   };
 
+  return data.data;
+}
+
+interface BorderResponse {
+  code: number;
+  msg: string;
+  data: {
+    right_count: number;
+    borders: {
+      title: string;
+      accepted: boolean;
+    }[];
+  };
+}
+/**
+ * 头像框数据
+ * https://worldcup-api.ncuos.com/api/auth/border
+ */
+export async function fetchBorderData() {
+  const response = await fetch(
+    "https://worldcup-api.ncuos.com/api/auth/border",
+    {
+      headers: {
+        Authorization: `${token}`,
+      },
+    }
+  );
+  const data: BorderResponse = await response.json();
+
+  // const data = {
+  //   code: 0,
+  //   data: {
+  //     borders: [
+  //       {
+  //         title: "初级",
+  //         accepted: true,
+  //       },
+  //       {
+  //         title: "中级",
+  //         accepted: false,
+  //       },
+  //       {
+  //         title: "高级",
+  //         accepted: false,
+  //       },
+  //     ],
+  //     right_count: 11,
+  //   },
+  //   msg: "成功",
+  // };
+  // console.log(data);
+  return data.data;
+}
+
+/**
+ * 领取头像框
+ * https://worldcup-api.ncuos.com/api/auth/border
+ */
+export async function acceptBorder(title: string) {
+  const response = await fetch(
+    "https://worldcup-api.ncuos.com/api/auth/border",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+      }),
+    }
+  );
+  const data: BorderResponse = await response.json();
+  console.log(data);
+  data.code == 0 && toast.info("领取成功");
+  data.code && toast.info(data.msg);
   return data.data;
 }
