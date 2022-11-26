@@ -1,4 +1,4 @@
-import { mincu, mincuCore } from "mincu-vanilla";
+import { mincu, mincuCore,networkModule } from "mincu-vanilla";
 
 const isApp = mincuCore.isApp;
 const toast = mincu.toast;
@@ -8,6 +8,7 @@ const token =
   (isApp == true
     ? mincu.appData.user.token
     : "");
+
 
 interface quizResponse {
   code: number;
@@ -101,31 +102,33 @@ export async function fetchAllMatches() {
   // console.log(data);
   return data;
 }
+
+
 /**
  * fetch awards from
  * https://worldcup-api.ncuos.com/api/auth/keys
  */
 export async function fetchAwards() {
-  const response = await fetch("https://worldcup-api.ncuos.com/api/auth/keys",{
-    headers:{
-      Authorization: `${token}`,
-    }
-  });
-  const data = await response.json();
+  // const response = await fetch("https://worldcup-api.ncuos.com/api/auth/keys",{
+  //   headers:{
+  //     Authorization: `${token}`,
+  //   }
+  // });
+  // const data = await response.json();
 
-  // const data = {
-  //   data: {
-  //     right_count: 10,
-  //     cd_keys: [
-  //       {
-  //         title: "beginner",
-  //         Key: "xjp2077",
-  //       },
-  //       { title: "intermediate", Key: "JK4CUNN2VWKBNKH" },
-  //       { title: "advanced", Key: "" },
-  //     ],
-  //   },
-  // };
+  const data = {
+    data: {
+      right_count: 10,
+      cd_keys: [
+        // {
+        //   title: "beginner",
+        //   Key: "xjp2077",
+        // },
+        // { title: "intermediate", Key: "JK4CUNN2VWKBNKH" },
+        // { title: "advanced", Key: "" },
+      ],
+    },
+  };
 
   return data.data;
 }

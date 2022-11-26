@@ -96,7 +96,7 @@ const App: Component = () => {
           setShowAwards(false);
         }}
       />
-      {showAwards() && awardsData() && <AwardsPortal awardsData={awardsData()!} />}
+      {showAwards() && awardsData() && <AwardsPortal awardsData={matchesAndQuiz()!} />}
       <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold">
         <div class="max-w-screen-md mx-auto">
           <div class="flex flex-col">
