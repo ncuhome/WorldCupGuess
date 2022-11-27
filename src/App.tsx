@@ -6,6 +6,7 @@ import {
   For,
   Switch,
   Match,
+  createEffect,
 } from "solid-js";
 import dayjs from "dayjs";
 import classNames from "classnames";
@@ -36,6 +37,8 @@ const App: Component = () => {
   const [awardsData] = createResource(fetchAwards);
   const [borderData, { mutate: mutateBorderData, refetch: refetchBorderData }] =
     createResource(fetchBorderData);
+
+  let datesContainerRef: HTMLDivElement | undefined;
 
   const activeMatches = () => {
     return (allMatches() || []).filter(
@@ -97,6 +100,14 @@ const App: Component = () => {
         refetchBorderData();
       });
   };
+
+  createEffect(() => {
+    if (!datesContainerRef) return;
+    activeDate();
+    datesContainerRef.scrollLeft =
+      (document.querySelector(".activeDate") as HTMLElement)?.offsetLeft -
+        176 || 0;
+  });
 
   setInterval(() => {
     refetch();
@@ -171,14 +182,19 @@ const App: Component = () => {
                 </div>
               </div>
               <Spacer2 />
-              <div class="flex flex-row space-x-2 overflow-x-auto scroll-m-0 scroll snap-x">
+              <div
+                class="flex flex-row space-x-2 overflow-x-auto snap-x scroll-smooth"
+                ref={datesContainerRef}
+              >
                 <For each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2]}>
                   {(item) => (
-                    <div class="flex flex-col items-center snap-center">
+                    <div class="snap-start">
                       <div
                         class={classNames(
                           "w-10 h-10 rounded-full bg-white/10 text-center leading-10",
-                          { "bg-green-500/90": item === activeDate() }
+                          {
+                            "bg-green-500/90 activeDate": item === activeDate(),
+                          }
                         )}
                         onClick={() => {
                           setDate(item);
