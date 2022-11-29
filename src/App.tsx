@@ -142,11 +142,18 @@ const App: Component = () => {
             <div class="p-4 rounded-3xl mx-auto bg-gradient-to-br from-[#222124] to-[#2B2B2B]/60 w-11/12">
               <Switch fallback={<Loading />}>
                 <Match when={currentMatches()?.length > 0}>
-                  <div class="text-lg font-bold">正在进行</div>
-                  <Spacer2 />
-                  <Scoreboard {...currentMatches()[0]} >
+                  <div class="flex flex-row justify-between">
+                    <div class="text-lg font-bold">正在进行</div>
                     <MoreInfo />
-                  </Scoreboard>
+                  </div>
+                  <For each={currentMatches()}>
+                    {(currentMatch: () => ScoreboardProps, index) => (
+                      <>
+                        <Spacer2 />
+                        <Scoreboard {...currentMatch()} />
+                      </>
+                    )}
+                  </For>
                 </Match>
                 <Match
                   when={
@@ -235,14 +242,16 @@ const App: Component = () => {
               </For>
             </div>
             <Spacer4 />
-            <div
-              class=" w-20 py-1 text-center bg-white/10 rounded-xl self-center"
-              onClick={() =>
-                (window.location.href =
-                  "https://wenjuan.feishu.cn/m?t=sWAFWN1vvLHi-wv22")
-              }
-            >
-              问题反馈
+            <div class="text-center">
+              <span
+                onclick={() => {
+                  window.location.href =
+                    "https://wenjuan.feishu.cn/m?t=sWAFWN1vvLHi-wv22";
+                }}
+                class="px-3 py-1 bg-white/10 text-center rounded-xl"
+              >
+                问题反馈
+              </span>
             </div>
             <Spacer4 />
           </div>
@@ -254,13 +263,15 @@ const App: Component = () => {
 
 const MoreInfo: Component = () => {
   return (
-    <div
-      onclick={() => {
-        window.open("https://worldcup.cctv.com/");
-      }}
-      class="p-1 bg-white/10 text-center rounded-lg "
-    >
-      更多信息
+    <div class="text-center">
+      <span
+        onclick={() => {
+          window.open("https://worldcup.cctv.com/");
+        }}
+        class="px-3 py-1 bg-white/10 text-center rounded-xl"
+      >
+        更多信息
+      </span>
     </div>
   );
 };
