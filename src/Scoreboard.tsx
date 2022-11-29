@@ -25,14 +25,15 @@ export type ScoreboardProps = {
   winner_code?: string;
 };
 
-export const Scoreboard: Component<ScoreboardProps> = ({
-  children,
-  status,
-  home_team,
-  away_team,
-  datetime,
-  quiz,
-}) => {
+export const Scoreboard: Component<ScoreboardProps> = (props) => {
+  const {
+    children,
+    status,
+    home_team,
+    away_team,
+    datetime,
+    quiz,
+  } = props;
   dayjs.locale("zh-cn");
   return (
     <div class="flex flex-col p-3 bg-white/10 rounded-2xl">
@@ -66,7 +67,7 @@ export const Scoreboard: Component<ScoreboardProps> = ({
           >
             <div class="flex flex-col justify-center items-center flex-nowrap">
               <div class="text-4xl font-bold whitespace-normal">
-                {home_team?.goals || 0} : {away_team?.goals || 0}
+                {props.home_team?.goals || 0} : {props.away_team?.goals || 0}
               </div>
               {status == "in_progress" ? (
                 <div class="text-sm text-green-500 font-semibold relative flex felx-row justify-center items-center ">
@@ -95,10 +96,11 @@ export const Scoreboard: Component<ScoreboardProps> = ({
 };
 
 const Flag = (props: { country: string }) => {
+  const country = props.country === "To Be Determined" ? "待定" : props.country;
   return (
     <img
       class=" h-12 rounded-sm drop-shadow-sm"
-      src={`/flags/${props.country}.webp`.replace(" ", "_")}
+      src={`/flags/${country}.webp`.replace(" ", "_")}
       alt=""
     />
   );

@@ -1,0 +1,12 @@
+{
+  "currentMatch": [
+    {
+      "id": 1,
+      "home_team": { "name": "中国", "goals": 3 },
+      "away_team": { "name": "美国", "goals": 1 },
+      "datetime": "2021-06-11T00:00:00Z",
+      "status": "in_progress",
+      "venue": "北京"
+    }
+  ]
+}

@@ -26,6 +26,7 @@ import Loading from "./Loading";
 import { Spacer2, Spacer4, Divider } from "./widget";
 import AwardsPortal from "./AwardsPortal";
 import AwardsExhibition from "./AwardsExhibition";
+import QuizArea from "./QuizArea";
 
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(dayjs().date());
@@ -111,7 +112,7 @@ const App: Component = () => {
 
   setInterval(() => {
     refetch();
-  }, 60000);
+  }, 6000);
 
   return (
     <>
@@ -143,7 +144,7 @@ const App: Component = () => {
                 <Match when={currentMatches()?.length > 0}>
                   <div class="text-lg font-bold">正在进行</div>
                   <Spacer2 />
-                  <Scoreboard status="in_progress" {...currentMatches()[0]}>
+                  <Scoreboard {...currentMatches()[0]} >
                     <MoreInfo />
                   </Scoreboard>
                 </Match>
@@ -186,7 +187,9 @@ const App: Component = () => {
                 class="flex flex-row space-x-2 overflow-x-auto snap-x scroll-smooth"
                 ref={datesContainerRef}
               >
-                <For each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2]}>
+                <For
+                  each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5]}
+                >
                   {(item) => (
                     <div class="snap-start">
                       <div
@@ -221,83 +224,11 @@ const App: Component = () => {
                   <>
                     <Spacer4 />
                     <Scoreboard {...item}>
-                      {mincu.isApp ? (
-                        <Switch>
-                          <Match
-                            when={
-                              !quiz(item.id) &&
-                              item.status !== "future_scheduled"
-                            }
-                          >
-                            <Divider />
-                            <div class="text-center text-sm font-semibold text-gray-300">
-                              未参与竞猜
-                            </div>
-                          </Match>
-
-                          <Match when={quiz(item.id) && !item.winner}>
-                            <Divider />
-                            <div class="text-center">
-                              已竞猜
-                              {quiz(item.id) == "Draw"
-                                ? "平局"
-                                : ` ${quiz(item.id)} 获胜`}
-                            </div>
-                          </Match>
-                          <Match when={quiz(item.id) && item.winner}>
-                            <Divider />
-                            <div class="text-center ">
-                              {item.winner == "Draw"
-                                ? "平局"
-                                : `${item.winner} 获胜`}{" "}
-                              {item.winner == quiz(item.id)
-                                ? "竞猜正确"
-                                : "竞猜错误"}
-                            </div>
-                          </Match>
-
-                          <Match
-                            when={
-                              !quiz(item.id) &&
-                              item.status == "future_scheduled"
-                            }
-                          >
-                            <div class="flex flex-row justify-center items-center bg-white/10 w-fit mx-auto px-8 py-2 rounded-full text-sm space-x-6">
-                              <div
-                                onclick={() =>
-                                  submitQuiz(item.id, item.home_team?.name!)
-                                }
-                                class="font-semibold"
-                              >
-                                主队胜
-                              </div>
-                              <div class="w-px h-6 bg-white/10"></div>
-                              <div
-                                onclick={() => submitQuiz(item.id, "Draw")}
-                                class="font-semibold"
-                              >
-                                平
-                              </div>
-                              <div class="w-px h-6 bg-white/10"></div>
-                              <div
-                                onclick={() => {
-                                  submitQuiz(item.id, item.away_team?.name!);
-                                }}
-                                class="font-semibold"
-                              >
-                                客队胜
-                              </div>
-                            </div>
-                          </Match>
-                        </Switch>
-                      ) : (
-                        <>
-                          <Divider />
-                          <div class="text-center ">
-                            请在南大家园中打开此页面进行竞猜
-                          </div>
-                        </>
-                      )}
+                      <QuizArea
+                        item={item}
+                        quiz={quiz}
+                        submitQuiz={submitQuiz}
+                      />
                     </Scoreboard>
                   </>
                 )}
