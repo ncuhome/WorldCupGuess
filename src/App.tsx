@@ -112,7 +112,7 @@ const App: Component = () => {
 
   setInterval(() => {
     refetch();
-  }, 6000);
+  }, 60000);
 
   return (
     <>
