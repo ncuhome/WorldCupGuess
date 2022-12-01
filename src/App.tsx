@@ -134,7 +134,7 @@ const App: Component = () => {
       {showAwards() && borderData() && (
         <AwardsPortal borderData={borderData()!} onAccept={handleAccept} />
       )}
-      <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold">
+      <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold ">
         <div class="max-w-screen-md mx-auto">
           <div class="flex flex-col">
             {/* 正在进行 */}

@@ -38,14 +38,20 @@ const QuizArea = (props: any) => {
               >
                 主队胜
               </div>
-              <div class="w-px h-6 bg-white/10"></div>
-              <div
-                onclick={() => submitQuiz(item.id, "Draw")}
-                class="font-semibold"
-              >
-                平
-              </div>
-              <div class="w-px h-6 bg-white/10"></div>
+              {item.id <= 48 ? (
+                <>
+                  <div class="w-px h-6 bg-white/10"></div>
+                  <div
+                    onclick={() => submitQuiz(item.id, "Draw")}
+                    class="font-semibold"
+                  >
+                    平
+                  </div>
+                  <div class="w-px h-6 bg-white/10"></div>
+                </>
+              ) : (
+                <div class="">VS</div>
+              )}
               <div
                 onclick={() => {
                   submitQuiz(item.id, item.away_team?.name!);
