@@ -11,8 +11,7 @@ const QuizArea = (props: any) => {
           <Match when={!quiz(item.id) && item.status !== "future_scheduled"}>
             <Divider />
             <div class="text-center text-sm font-semibold text-gray-300">
-              {/* 未参与竞猜 */}
-              竞猜维护中
+              未参与竞猜
             </div>
           </Match>
 
