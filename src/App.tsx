@@ -7,6 +7,9 @@ import {
   Switch,
   Match,
   createEffect,
+  onCleanup,
+  Show,
+  Index,
 } from "solid-js";
 import dayjs from "dayjs";
 import classNames from "classnames";
@@ -15,7 +18,6 @@ import { mincu } from "mincu-vanilla";
 import {
   acceptBorder,
   fetchAllMatches,
-  fetchAwards,
   fetchBorderData,
   fetchCurrentMatches,
   fetchMatchesAndQuiz,
@@ -23,7 +25,7 @@ import {
 } from "./apis";
 import { Scoreboard, ScoreboardProps } from "./Scoreboard";
 import Loading from "./Loading";
-import { Spacer2, Spacer4, Divider } from "./widget";
+import { Spacer2, Spacer4 } from "./widget";
 import AwardsPortal from "./AwardsPortal";
 import AwardsExhibition from "./AwardsExhibition";
 import QuizArea from "./QuizArea";
@@ -35,7 +37,6 @@ const App: Component = () => {
   const [matchesAndQuiz, { mutate, refetch: refetchQuiz }] =
     createResource(fetchMatchesAndQuiz);
   const [currentMatches, { refetch }] = createResource(fetchCurrentMatches);
-  const [awardsData] = createResource(fetchAwards);
   const [borderData, { mutate: mutateBorderData, refetch: refetchBorderData }] =
     createResource(fetchBorderData);
 
@@ -110,30 +111,22 @@ const App: Component = () => {
         176 || 0;
   });
 
-  setInterval(() => {
+  const timer = setInterval(() => {
     refetch();
   }, 60000);
+  onCleanup(() => clearInterval(timer));
 
   return (
     <>
-      <div
-        class={classNames(
-          "fixed top-0 left-0 w-screen h-screen  bg-black/30",
-          {
-            " z-10": showAwards(),
-          },
-          {
-            "-z-10": !showAwards(),
-          }
-        )}
-        id="modal"
-        onclick={() => {
-          setShowAwards(false);
-        }}
-      />
-      {showAwards() && borderData() && (
+      <Show when={showAwards()}>
+        <div
+          class="fixed top-0 left-0 w-screen h-screen z-10 bg-black/30"
+          onclick={() => {
+            setShowAwards(false);
+          }}
+        />
         <AwardsPortal borderData={borderData()!} onAccept={handleAccept} />
-      )}
+      </Show>
       <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold ">
         <div class="max-w-screen-md mx-auto">
           <div class="flex flex-col">
@@ -194,31 +187,25 @@ const App: Component = () => {
                 class="flex flex-row space-x-2 overflow-x-auto snap-x scroll-smooth"
                 ref={datesContainerRef}
               >
-                <For
-                  each={[
-                    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7,
-                    8, 9, 10, 11, 12,
-                  ]}
+                <Index
+                  each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5,6,7,9,10]}
                 >
                   {(item) => (
-                    <div class="snap-start">
-                      <div
-                        class={classNames(
-                          "w-10 h-10 rounded-full bg-white/10 text-center leading-10",
-                          {
-                            "bg-green-500/90 activeDate": item === activeDate(),
-                          }
-                        )}
-                        onClick={() => {
-                          setDate(item);
-                          // refetch();
-                        }}
-                      >
-                        {item}
-                      </div>
+                    <div
+                      class={classNames(
+                        "w-10 h-10 rounded-full bg-white/10 text-center leading-10 snap-start flex-shrink-0",
+                        {
+                          "bg-green-500/90 activeDate": item() === activeDate(),
+                        }
+                      )}
+                      onClick={() => {
+                        setDate(item);
+                      }}
+                    >
+                      {item}
                     </div>
                   )}
-                </For>
+                </Index>
               </div>
 
               <For
