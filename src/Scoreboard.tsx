@@ -40,8 +40,8 @@ export const Scoreboard: Component<ScoreboardProps> = (props) => {
 
   const judgeType = () => {
     if (id < 48) return "小组赛";
-    if (id >= 48 && id < 56) return "1 / 8 决赛";
-    if (id >= 56 && id < 61) return "1 / 4 决赛";
+    if (id >= 48 && id <= 56) return "1 / 8 决赛";
+    if (id > 56 && id < 61) return "1 / 4 决赛";
     if (id === 61 || id === 62) return "半决赛";
     if (id === 63) return "三四名决赛";
     if (id === 64) return "决赛";
