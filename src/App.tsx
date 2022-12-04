@@ -107,7 +107,7 @@ const App: Component = () => {
     activeDate();
     datesContainerRef.scrollLeft =
       (document.querySelector(".activeDate") as HTMLElement)?.offsetLeft -
-        176 || 0;
+      176 || 0;
   });
 
   setInterval(() => {
@@ -195,7 +195,7 @@ const App: Component = () => {
                 ref={datesContainerRef}
               >
                 <For
-                  each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5]}
+                  each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7]}
                 >
                   {(item) => (
                     <div class="snap-start">
