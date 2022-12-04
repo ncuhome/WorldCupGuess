@@ -51,10 +51,8 @@ export const Scoreboard: Component<ScoreboardProps> = (props) => {
     <div class="flex flex-col p-3 bg-white/10 rounded-2xl">
       {status == "in_progress" ||
         (status == "completed" && (
-          <div>
-            <div class=" text-gray-300 text-center">
-              {dayjs(datetime).format("MM-DD HH:mm")}
-            </div>
+          <div class=" text-gray-300 text-center">
+            {dayjs(datetime).format("MM-DD HH:mm")}
           </div>
         ))}
 
