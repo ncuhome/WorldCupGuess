@@ -6,10 +6,10 @@ export type ScoreboardProps = {
   quiz?: string;
   children?: JSXElement;
   status?:
-    | "completed"
-    | "in_progress"
-    | "future_scheduled"
-    | "future_unscheduled";
+  | "completed"
+  | "in_progress"
+  | "future_scheduled"
+  | "future_unscheduled";
   home_team?: {
     country: string;
     name: string;
@@ -33,16 +33,36 @@ export const Scoreboard: Component<ScoreboardProps> = (props) => {
     away_team,
     datetime,
     quiz,
+    id,
   } = props;
+
   dayjs.locale("zh-cn");
+
+  const judgeType = () => {
+    if (id < 48) return "小组赛";
+    if (id >= 48 && id < 56) return "1 / 8 决赛";
+    if (id >= 56 && id < 61) return "1 / 4 决赛";
+    if (id === 61 || id === 62) return "半决赛";
+    if (id === 63) return "三四名决赛";
+    if (id === 64) return "决赛";
+  }
+
   return (
     <div class="flex flex-col p-3 bg-white/10 rounded-2xl">
       {status == "in_progress" ||
         (status == "completed" && (
-          <div class=" text-gray-300 text-center">
-            {dayjs(datetime).format("MM-DD HH:mm")}
+          <div>
+            <div class=" text-gray-300 text-center">
+              {dayjs(datetime).format("MM-DD HH:mm")}
+            </div>
           </div>
         ))}
+
+      <div class="text-center text-grey-300">
+        {judgeType()}
+      </div>
+
+
       <div class="mt-2"></div>
       <div class="flex flex-row justify-around items-center">
         <div class="flex flex-col flex-1 justify-center items-center">
@@ -56,7 +76,6 @@ export const Scoreboard: Component<ScoreboardProps> = (props) => {
             }
             fallback={
               <div class="flex flex-col flex-nowrap ">
-                {/* <div class=" text-gray-200 text-center">B group </div> */}
                 <div class=" text-gray-200 text-center ">
                   {dayjs(datetime).format("MM-DD")}
                   <br />
