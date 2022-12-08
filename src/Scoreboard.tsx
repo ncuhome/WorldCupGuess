@@ -56,12 +56,18 @@ export const Scoreboard: Component<ScoreboardProps> = (props) => {
           </div>
         ))}
 
-      <div class="text-center text-grey-300">
-        {judgeType()}
-      </div>
-
+      {status == "completed" ?
+        <div class="flex flex-row justify-around items-center">
+          <button class="px-3 py-0.5 bg-white/10 text-center rounded-xl">
+            {judgeType()}
+          </button>
+        </div> : <div class="flex flex-row justify-around items-center">
+          {judgeType()}
+        </div>
+      }
 
       <div class="mt-2"></div>
+
       <div class="flex flex-row justify-around items-center">
         <div class="flex flex-col flex-1 justify-center items-center">
           <Flag country={home_team?.name!} />
