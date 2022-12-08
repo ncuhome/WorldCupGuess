@@ -30,8 +30,16 @@ import AwardsPortal from "./AwardsPortal";
 import AwardsExhibition from "./AwardsExhibition";
 import QuizArea from "./QuizArea";
 
+//比赛日
+const matchDates = [
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 9, 10,
+];
+const getValidDate = (date: number): number => {
+  return matchDates.includes(date) ? date : getValidDate(date + 1);
+};
+
 const App: Component = () => {
-  const [activeDate, setDate] = createSignal(dayjs().date());
+  const [activeDate, setDate] = createSignal(getValidDate(dayjs().date()));
   const [showAwards, setShowAwards] = createSignal(false);
   const [allMatches] = createResource(fetchAllMatches);
   const [matchesAndQuiz, { mutate, refetch: refetchQuiz }] =
@@ -175,7 +183,7 @@ const App: Component = () => {
                   <span
                     class="bg-green-500 rounded-full py-1 px-2 "
                     onclick={() => {
-                      setDate(dayjs().date());
+                      setDate(getValidDate(dayjs().date()));
                     }}
                   >
                     回到今日
@@ -187,9 +195,7 @@ const App: Component = () => {
                 class="flex flex-row space-x-2 overflow-x-auto snap-x scroll-smooth"
                 ref={datesContainerRef}
               >
-                <Index
-                  each={[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5,6,7,9,10]}
-                >
+                <Index each={matchDates}>
                   {(item) => (
                     <div
                       class={classNames(
