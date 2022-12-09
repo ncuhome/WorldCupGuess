@@ -202,3 +202,19 @@ export async function acceptBorder(title: string) {
   data.code && toast.info(data.msg);
   return data.data;
 }
+
+
+/**
+ * fetch score from 
+ * https://worldcup-api.ncuos.com/api/auth/score
+ */
+export async function fetchScore() {
+  const response = await fetch("https://worldcup-api.ncuos.com/api/auth/score",{
+    headers:{
+      Authorization: `${token}`,
+    }
+  });
+  const data = await response.json();
+  // console.log(data);
+  return data.data;
+}

@@ -1,5 +1,6 @@
 import { mincu } from "mincu-vanilla";
-import { Component } from "solid-js";
+import { Component, createResource } from "solid-js";
+import { fetchScore } from "./apis";
 import { Spacer4, Spacer2 } from "./widget";
 import avatar1 from "/avatar1.png";
 import avatar2 from "/avatar2.png";
@@ -9,6 +10,7 @@ interface Props {
   onclick: () => void;
 }
 const AwardsExhibition: Component<Props> = (props) => {
+  const [score] = createResource(fetchScore);
   return (
     <>
       <Spacer4 />
@@ -47,8 +49,11 @@ const AwardsExhibition: Component<Props> = (props) => {
         </div>
 
         <Spacer2 />
-        <div class="p-2 bg-black/10 rounded-xl flex flex-col items-center">
+        <div class="p-2 bg-black/10 rounded-xl flex flex-col items-center leading-none">
           <div class="text-lg font-semibold">iNCU 宇宙藏品</div>
+          {score() && (
+            <div class=" text-green-400/60">当前积分：{score().score}</div>
+          )}
           <div class="text-gray-200">1/4、1/2、小决赛1分，大决赛2分</div>
           <div class="text-gray-200">积 5 分可领取数字藏品 </div>
           <Spacer2 />

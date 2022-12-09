@@ -35,7 +35,7 @@ const matchDates = [
   21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11
 ];
 const getValidDate = (date: number): number => {
-  return matchDates.includes(date) ? date : getValidDate(date + 1);
+  return matchDates.includes(date) ? date : getValidDate((date + 1) % 31);
 };
 
 const App: Component = () => {
