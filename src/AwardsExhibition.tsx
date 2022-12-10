@@ -1,16 +1,15 @@
 import { mincu } from "mincu-vanilla";
 import { Component, createResource } from "solid-js";
-import { fetchScore } from "./apis";
 import { Spacer4, Spacer2 } from "./widget";
 import avatar1 from "/avatar1.png";
 import avatar2 from "/avatar2.png";
 import avatar3 from "/avatar3.png";
 
 interface Props {
-  onclick: () => void;
+  clickAwarded: () => void;
+  clickDiscribe: () => void;
 }
 const AwardsExhibition: Component<Props> = (props) => {
-  const [score] = createResource(fetchScore);
   return (
     <>
       <Spacer4 />
@@ -19,7 +18,7 @@ const AwardsExhibition: Component<Props> = (props) => {
           <span class="text-lg font-bold">竞猜赢永久奖励</span>
           <span
             class="text-md bg-white/10 px-2 rounded-lg"
-            onclick={props.onclick}
+            onclick={props.clickAwarded}
           >
             查看已获得
           </span>
@@ -50,12 +49,16 @@ const AwardsExhibition: Component<Props> = (props) => {
 
         <Spacer2 />
         <div class="p-2 bg-black/10 rounded-xl flex flex-col items-center leading-none">
-          <div class="text-lg font-semibold">iNCU 宇宙藏品</div>
-          {score() && (
-            <div class=" text-green-400/60">当前积分：{score().score}</div>
-          )}
-          <div class="text-gray-200">1/4、1/2、小决赛1分，大决赛2分</div>
-          <div class="text-gray-200">积 5 分可领取数字藏品 </div>
+          <div class="flex content-center">
+            <div class="text-lg font-semibold leading-6">iNCU 宇宙藏品</div>
+            <div class="w-1"></div>
+            <div
+              class="w-6 h-6 bg-white/10 rounded-full text-center leading-6"
+              onclick={props.clickDiscribe}
+            >
+              ?
+            </div>
+          </div>
           <Spacer2 />
           <div
             class="text-white bg-black/80 rounded-full px-3 py-1 shadow-lg"

@@ -21,12 +21,14 @@ import {
   fetchBorderData,
   fetchCurrentMatches,
   fetchMatchesAndQuiz,
+  fetchScore,
   postQuiz,
 } from "./apis";
 import { Scoreboard, ScoreboardProps } from "./Scoreboard";
 import Loading from "./Loading";
 import { Spacer2, Spacer4 } from "./widget";
 import AwardsPortal from "./AwardsPortal";
+import AwardsDiscribe from "./AwardsDiscribe";
 import AwardsExhibition from "./AwardsExhibition";
 import QuizArea from "./QuizArea";
 
@@ -34,6 +36,7 @@ import QuizArea from "./QuizArea";
 const matchDates = [
   21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11
 ];
+
 const getValidDate = (date: number): number => {
   return matchDates.includes(date) ? date : getValidDate((date + 1) % 31);
 };
@@ -41,12 +44,15 @@ const getValidDate = (date: number): number => {
 const App: Component = () => {
   const [activeDate, setDate] = createSignal(getValidDate(dayjs().date()));
   const [showAwards, setShowAwards] = createSignal(false);
+  const [showDiscribe, setShowDiscribe] = createSignal(false);
   const [allMatches] = createResource(fetchAllMatches);
+  const [score] = createResource(fetchScore)
   const [matchesAndQuiz, { mutate, refetch: refetchQuiz }] =
     createResource(fetchMatchesAndQuiz);
   const [currentMatches, { refetch }] = createResource(fetchCurrentMatches);
   const [borderData, { mutate: mutateBorderData, refetch: refetchBorderData }] =
     createResource(fetchBorderData);
+
 
   let datesContainerRef: HTMLDivElement | undefined;
 
@@ -92,6 +98,14 @@ const App: Component = () => {
     setShowAwards(true);
   };
 
+  const handleShowDiscribe = () => {
+    if (!mincu.isApp) {
+      alert("请在南大家园中打开");
+      return;
+    }
+    setShowDiscribe(true)
+  };
+
   const handleAccept = (title: string) => {
     mutateBorderData({
       ...borderData(),
@@ -135,6 +149,17 @@ const App: Component = () => {
         />
         <AwardsPortal borderData={borderData()!} onAccept={handleAccept} />
       </Show>
+
+      <Show when={showDiscribe()}>
+        <div
+          class="fixed top-0 left-0 w-screen h-screen z-10 bg-black/30"
+          onclick={() => {
+            setShowDiscribe(false);
+          }}
+        />
+        <AwardsDiscribe score={score().score} />
+      </Show>
+
       <div class="bg-gradient-to-b from-[#7bbd52] to-[#118a06]  text-white min-h-screen font-semibold ">
         <div class="max-w-screen-md mx-auto">
           <div class="flex flex-col">
@@ -170,8 +195,12 @@ const App: Component = () => {
               </Switch>
             </div>
 
+
+
+
             {/* 赢头像框 */}
-            <AwardsExhibition onclick={handleShowAwards} />
+            <AwardsExhibition clickAwarded={handleShowAwards} clickDiscribe={handleShowDiscribe} />
+
 
             {/* 赛事日程 */}
             <Spacer4 />
