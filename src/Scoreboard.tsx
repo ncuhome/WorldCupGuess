@@ -14,11 +14,13 @@ export type ScoreboardProps = {
     country: string;
     name: string;
     goals: number;
+    penalties: number;
   };
   away_team?: {
     country: string;
     name: string;
     goals: number;
+    penalties: number;
   };
   datetime?: string;
   winner?: string;
@@ -45,6 +47,14 @@ export const Scoreboard: Component<ScoreboardProps> = (props) => {
     if (id === 61 || id === 62) return "半决赛";
     if (id === 63) return "三四名决赛";
     if (id === 64) return "决赛";
+  }
+
+  const allPenalties = props.home_team?.penalties! + props.home_team?.penalties!
+
+  const judgePenaltyShootout = () => {
+    if (allPenalties > 2)
+      return (true);
+    return (false)
   }
 
   return (
@@ -89,9 +99,15 @@ export const Scoreboard: Component<ScoreboardProps> = (props) => {
             }
           >
             <div class="flex flex-col justify-center items-center flex-nowrap">
-              <div class="text-4xl font-bold whitespace-normal">
-                {props.home_team?.goals || 0} : {props.away_team?.goals || 0}
-              </div>
+              {judgePenaltyShootout() == true ? (
+                <div class="text-2xl font-bold whitespace-normal">
+                  ({props.home_team?.penalties}){props.home_team?.goals || 0}:{props.away_team?.goals || 0}({props.away_team?.penalties})
+                </div>) : (<div class="text-4xl font-bold whitespace-normal">
+                  {props.home_team?.goals || 0} : {props.away_team?.goals || 0}
+                </div>)
+              }
+
+
               {status == "in_progress" ? (
                 <div class="text-sm text-green-500 font-semibold relative flex felx-row justify-center items-center ">
                   <span class="flex relative h-3 w-3 mr-2">
