@@ -34,7 +34,8 @@ import QuizArea from "./QuizArea";
 
 //比赛日
 const matchDates = [
-  21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14,
+  15, 17, 18,
 ];
 
 const getValidDate = (date: number): number => {
@@ -46,13 +47,12 @@ const App: Component = () => {
   const [showAwards, setShowAwards] = createSignal(false);
   const [showDiscribe, setShowDiscribe] = createSignal(false);
   const [allMatches] = createResource(fetchAllMatches);
-  const [score] = createResource(fetchScore)
+  const [score] = createResource(fetchScore);
   const [matchesAndQuiz, { mutate, refetch: refetchQuiz }] =
     createResource(fetchMatchesAndQuiz);
   const [currentMatches, { refetch }] = createResource(fetchCurrentMatches);
   const [borderData, { mutate: mutateBorderData, refetch: refetchBorderData }] =
     createResource(fetchBorderData);
-
 
   let datesContainerRef: HTMLDivElement | undefined;
 
@@ -103,7 +103,7 @@ const App: Component = () => {
       alert("请在南大家园中打开");
       return;
     }
-    setShowDiscribe(true)
+    setShowDiscribe(true);
   };
 
   const handleAccept = (title: string) => {
@@ -130,7 +130,7 @@ const App: Component = () => {
     activeDate();
     datesContainerRef.scrollLeft =
       (document.querySelector(".activeDate") as HTMLElement)?.offsetLeft -
-      176 || 0;
+        176 || 0;
   });
 
   const timer = setInterval(() => {
@@ -195,12 +195,11 @@ const App: Component = () => {
               </Switch>
             </div>
 
-
-
-
             {/* 赢头像框 */}
-            <AwardsExhibition clickAwarded={handleShowAwards} clickDiscribe={handleShowDiscribe} />
-
+            <AwardsExhibition
+              clickAwarded={handleShowAwards}
+              clickDiscribe={handleShowDiscribe}
+            />
 
             {/* 赛事日程 */}
             <Spacer4 />
