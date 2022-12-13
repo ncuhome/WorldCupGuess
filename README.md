@@ -10,6 +10,8 @@ yarn dev
 ```
 ## 后端
 
+世界杯 NFT repo: https://github.com/ncuhome/worldcupNFT_2022
+
 赛程数据：https://github.com/estiens/world_cup_json
 
 竞猜数据：https://github.com/ncuhome/worldcup-2022
