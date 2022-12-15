@@ -63,12 +63,13 @@ const AwardsExhibition: Component<Props> = (props) => {
           <div
             class="text-white bg-black/80 rounded-full px-3 py-1 shadow-lg"
             onclick={() => {
-              mincu.toScreen({
-                screen: "Webview",
-                params: {
-                  url: "https://worldcupnft2022.ncuos.com/?header=false",
-                },
-              });
+              mincu.isApp ?
+                mincu.toScreen({
+                  screen: "Webview",
+                  params: {
+                    url: "https://worldcupnft2022.ncuos.com/?header=false",
+                  },
+                }) : window.location.href = 'https://worldcupnft2022.ncuos.com'
             }}
           >
             前往iNCU宇宙
