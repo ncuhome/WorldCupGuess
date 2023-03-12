@@ -31,6 +31,7 @@ import AwardsPortal from "./AwardsPortal";
 import AwardsDiscribe from "./AwardsDiscribe";
 import AwardsExhibition from "./AwardsExhibition";
 import QuizArea from "./QuizArea";
+import { isMock } from "./apis";
 
 //比赛日
 const matchDates = [
@@ -125,6 +126,7 @@ const App: Component = () => {
       });
   };
 
+  if(isMock) setDate(9)
   createEffect(() => {
     if (!datesContainerRef) return;
     activeDate();

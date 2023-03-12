@@ -5,6 +5,8 @@ import avatar1 from "/avatar1.png";
 import avatar2 from "/avatar2.png";
 import avatar3 from "/avatar3.png";
 
+
+
 interface Props {
   clickAwarded: () => void;
   clickDiscribe: () => void;
@@ -63,12 +65,16 @@ const AwardsExhibition: Component<Props> = (props) => {
           <div
             class="text-white bg-black/80 rounded-full px-3 py-1 shadow-lg"
             onclick={() => {
-              mincu.toScreen({
-                screen: "Webview",
-                params: {
-                  url: "https://worldcupnft2022.ncuos.com/?header=false",
-                },
-              });
+              if (mincu.isApp) {
+                mincu.toScreen({
+                  screen: "Webview",
+                  params: {
+                    url: "https://worldcupnft2022.ncuos.com/?header=false",
+                  },
+                });
+              }else{
+                window.open("https://worldcupnft2022.ncuos.com/?header=false")
+              }
             }}
           >
             前往iNCU宇宙

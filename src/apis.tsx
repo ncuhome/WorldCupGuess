@@ -1,9 +1,12 @@
 import { mincu, mincuCore, networkModule } from "mincu-vanilla";
+import mockData from '../mock.json'
 
 const isApp = mincuCore.isApp;
 const toast = mincu.toast;
-
+export const isMock = true
 const token = "passport " + (isApp == true ? mincu.appData.user.token : "");
+
+if(isMock) console.log("mock data is used")
 
 interface quizResponse {
   code: number;
@@ -70,9 +73,9 @@ export async function postQuiz(match_id: number, quiz: string) {
  * https://worldcupjson.net/matches/current
  */
 export async function fetchCurrentMatches() {
+  if(isMock) return mockData.currentMatch
   const response = await fetch("https://worldcupjson.net/matches/current");
   const data = await response.json();
-  // console.log(data);
   return data;
 }
 
@@ -92,6 +95,7 @@ export async function fetchTodayMatches() {
  * https://worldcupjson.net/matches
  */
 export async function fetchAllMatches() {
+  if(isMock) return mockData.allMatches
   const response = await fetch("https://worldcupjson.net/matches");
   const data = await response.json();
   // console.log(data);
